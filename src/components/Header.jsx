@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link, NavLink } from 'react-router-dom'
-import open from '../../public/assets/shared/icon-hamburger.svg'
-import close from '../../public/assets/shared/icon-close.svg'
+import open from '/assets/shared/icon-hamburger.svg'
+import close from '/assets/shared/icon-close.svg'
 
 const Nav = styled.nav`
   display: flex;
@@ -11,13 +11,14 @@ const Nav = styled.nav`
   font-family: "Barlow Condensed", sans-serif;
 
   .menu_open, .menu_close {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     overflow: hidden;
     background-repeat: no-repeat;
     background-color: transparent;
     border-color: transparent;
-    background-size: contain;
+    background-size: 24px 24px;
+    background-position: center center;
     white-space: nowrap;
     text-indent: 100%;
 
@@ -35,6 +36,9 @@ const Nav = styled.nav`
 
   .menu_close {
     background-image: url(${close});
+    position: absolute;
+    top: 29px;
+    right: 24px;
   }
 
   .rect {
@@ -67,11 +71,22 @@ const Nav = styled.nav`
     display: inline-block;
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(81.5485px);
-    display: none;
+    padding-inline: 0;
+    position: fixed;
+    width: 69%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    transition: right .05s;
+
     
     @media (min-width: 768px) {
       padding-inline: 4rem 4rem;
-      display: block;
+      display: inline-block;
+      position: static;
+      width: auto;
+      height: auto;
     }
 
     @media (min-width: 1440px) {
@@ -79,10 +94,27 @@ const Nav = styled.nav`
     }
   }
 
+  .hidden {
+    right: -100%;
+    transition: all .1s;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
   .main_nav_list {
     list-style: none;
-    display: flex;
-    gap: 24px;
+
+    margin-block-start: 118px;
+    margin-inline-start: 32px;
+
+    @media (min-width: 768px) {
+      margin-block-start: 0;
+      margin-inline-start: 0;
+      display: flex;
+      gap: 24px;
+    }
 
     @media (min-width: 1024px) {
       gap: 48px;
@@ -92,8 +124,15 @@ const Nav = styled.nav`
       gap: 48px;
     }
 
+    li + li {
+      margin-block-start: 32px;
+
+      @media (min-width: 768px) {
+        margin-block-start: 0;
+      }
+    }
+
     a {
-      display: block;
       text-decoration: none;
       display: flex;
       gap: 12px;
@@ -103,8 +142,11 @@ const Nav = styled.nav`
       line-height: 19.2px;
       font-weight: 400;
       text-transform: uppercase;
-      padding-block: 39px 38px;
       position: relative;
+      
+      @media (min-width: 768px) {
+        padding-block: 39px 38px;
+      }
 
       &.active::after, :hover::after  {
         content: "";
@@ -165,6 +207,17 @@ const HeaderComponent = styled.header`
 `
 
 const Header = () => {
+
+  const openClick = (e) => {
+    let menu_container = document.querySelector('.main_nav_container');
+    menu_container.classList.remove('hidden');
+  }
+
+  const closeClick = (e) => {
+    let menu_container = document.querySelector('.main_nav_container');
+    menu_container.classList.add('hidden');
+  }
+
   return (
     <HeaderComponent>
       <div className="logo">
@@ -174,10 +227,13 @@ const Header = () => {
       </div>
       <Nav>
         <div className="rect"></div>
-        <button className="menu_open">
+        <button 
+          onClick={openClick}
+          className="menu_open"
+        >
           menu open
         </button>
-        <div className="main_nav_container">
+        <div className="main_nav_container hidden">
           <ul className="main_nav_list">
             <li>
               <NavLink to="/" className="main_nav_link">
@@ -207,7 +263,10 @@ const Header = () => {
             </li>
 
           </ul>
-          <button className='menu_close'>
+          <button 
+            onClick={closeClick}
+            className='menu_close'
+          >
             menu close
           </button>
         </div>

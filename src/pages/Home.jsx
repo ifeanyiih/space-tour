@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import mobile from '../../public/assets/home/background-home-mobile.jpg'
-import tablet from '../../public/assets/home/background-home-tablet.jpg'
-import desktop from '../../public/assets/home/background-home-desktop.jpg'
+import mobile from '/assets/home/background-home-mobile.jpg'
+import tablet from '/assets/home/background-home-tablet.jpg'
+import desktop from '/assets/home/background-home-desktop.jpg'
 
 const Section = styled.section`
     min-height: 100vh;
