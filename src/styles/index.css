@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700&family=Bellefair&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=Barlow+Condensed:wght@400;700&family=Bellefair&display=swap');
 *,
 *::after,
 *::before {
@@ -8,6 +8,3 @@
   font-weight: 400;
 }
 
-body {
-  background-color: #0B0D17;
-}

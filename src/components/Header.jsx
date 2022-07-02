@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link, NavLink } from 'react-router-dom'
+import open from '../../public/assets/shared/icon-hamburger.svg'
+import close from '../../public/assets/shared/icon-close.svg'
 
 const Nav = styled.nav`
   display: flex;
@@ -8,11 +10,35 @@ const Nav = styled.nav`
   margin-inline-start: auto;
   font-family: "Barlow Condensed", sans-serif;
 
-  button {
-    display: none;
+  .menu_open, .menu_close {
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border-color: transparent;
+    background-size: contain;
+    white-space: nowrap;
+    text-indent: 100%;
+
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  .menu_open {
+    
+    margin-inline-start: auto;
+    background-image: url(${open});
+  }
+
+  .menu_close {
+    background-image: url(${close});
   }
 
   .rect {
+    display: none;
     display: inline-block;
     position: relative;
     right: -30px;
@@ -22,8 +48,13 @@ const Nav = styled.nav`
     background-color: #fff;
 
     @media (min-width: 1024px) {
-      width: 300px;
+      display: block;
+      width: 200px;
       height: 1px;
+    }
+
+    @media (min-width: 1280px) {
+      width: 300px;
     }
 
     @media (min-width: 1440px) {
@@ -34,10 +65,14 @@ const Nav = styled.nav`
 
   .main_nav_container {
     display: inline-block;
-    padding-inline: 4rem 4rem;
     background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(81.5485px);
-    backdrop-filter: blur(5px);
+    display: none;
+    
+    @media (min-width: 768px) {
+      padding-inline: 4rem 4rem;
+      display: block;
+    }
 
     @media (min-width: 1440px) {
       padding-inline: 123px 165px;
@@ -97,7 +132,7 @@ const HeaderComponent = styled.header`
   display: flex;
   align-items: center;
   top: 24px;
-  right: 0;
+  right: 24px;
   left: 24px;
 
 
@@ -106,11 +141,18 @@ const HeaderComponent = styled.header`
     width: 48px;
     height: 48px;
     border-radius: 100%;
+
+
+    @media (min-width: 768px) {
+      width: 48px;
+      height: 48px;
+    }
   }
 
   @media (min-width: 768px) {
     top: 0;
     left: 39px;
+    right: 0;
   }
   
   @media (min-width: 1440px) {
