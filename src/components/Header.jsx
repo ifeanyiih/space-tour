@@ -4,6 +4,9 @@ import { Link, NavLink } from 'react-router-dom'
 import open from '/assets/shared/icon-hamburger.svg'
 import close from '/assets/shared/icon-close.svg'
 
+
+import PageContent from '../util/util'
+
 const Nav = styled.nav`
   display: flex;
   align-items: center;
@@ -46,7 +49,7 @@ const Nav = styled.nav`
     display: inline-block;
     position: relative;
     right: -30px;
-    z-index: 10;
+    z-index: 1000;
     mix-blend-mode: normal;
     opacity: 0.25;
     background-color: #fff;
@@ -242,7 +245,7 @@ const Header = () => {
             </li>
 
             <li>
-              <NavLink to="/destination" className="main_nav_link">
+              <NavLink to="/destinations" state={PageContent("destinations")} className="main_nav_link">
                 <span className="path_no">01</span>
                 Destination
               </NavLink>
