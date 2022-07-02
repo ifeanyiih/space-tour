@@ -11,11 +11,7 @@ const Section = styled.section`
     padding-block-start: 112px;
 
 
-
     background-image: url(${mobile});
-
-
-
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -221,7 +217,7 @@ const Section = styled.section`
 
 const Home = () => {
   return (
-    <Section aria-label='main content section' className='main-section home'>
+    <Section aria-label='main content section home page' className='main-section home'>
         <div className="section_container">
 
             <article className="main content section article">
