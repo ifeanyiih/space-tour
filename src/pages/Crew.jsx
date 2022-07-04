@@ -14,7 +14,6 @@ const Section = styled.section`
   min-block-size: 100vh;
   padding-block-start: 88px;
   text-align: center;
-  position: relative;
 
   .page_heading {
     font-size: 1rem;
