@@ -50,6 +50,12 @@ const Content = styled.div`
       margin-inline-start: 38.5px;
     }
 
+   
+
+    @media (min-width: 1440px) {
+      margin-inline-start: 166.5px;
+    }
+
     .page_no {
       font-weight: 700;
       opacity: 0.25;
@@ -59,7 +65,9 @@ const Content = styled.div`
 
   @media (min-width: 1024px) {
     text-align: start;
+    padding-block-end: 100px;
   }
+
 `
 
 const Container = styled.div`
@@ -68,11 +76,11 @@ const Container = styled.div`
 
   @media (min-width: 1024px) {
     flex-direction: row;
-    gap: 3.5rem;
+    gap: 5rem;
   }
 
   @media (min-width: 1280px) {
-    gap: 4rem;
+    /* gap: 4rem; */
   }
 
   @media (min-width: 1440px) {
@@ -115,6 +123,10 @@ const Article = styled.article`
       order: 2;
       display: flex;
       flex-direction: column;
+    }
+
+    @media (min-width: 1440px) {
+      /* max-inline-size: 470px; */
     }
 
     
@@ -172,6 +184,7 @@ const Article = styled.article`
     line-height: 25px;
     padding-inline: 1.5rem;
     margin-block-end: 56px;
+    max-inline-size: 444px;
 
     @media (min-width: 768px) {
       font-size: 1rem;
@@ -190,7 +203,6 @@ const Article = styled.article`
       margin-block-end: 0;
       font-size: 18px;
       line-height: 32px;
-      max-width: 444px;
     }
 
   }
@@ -214,7 +226,7 @@ const Figure = styled.figure`
     justify-content: end;
     order: 2;
     width: 515px;
-    margin-block-end: 101px;
+    /* margin-block-end: 101px; */
 
   }
 `
@@ -301,6 +313,8 @@ const Technology = () => {
   return (
     <Section aria-label='main content section technology page' className='main_content_section section technology'>
       <Content>
+
+
         <h1 className="page_heading">
           <span className="page_no">
             03
@@ -308,62 +322,64 @@ const Technology = () => {
           <span className="title">
             space launch 101
           </span>
-      </h1>
+        </h1>
 
-      <Container>
-        <Article>
-          <Buttons>
-            <Button
-              onClick={(e) => {
-                const prev = document.querySelector('button.active')
-                prev.classList.remove('active')
-                e.target.classList.add('active')
-                handleClick("launch vehicle")
-              }}
-             className='active' 
-             num="1"
-            >1</Button>
-            <Button
-              onClick={(e) => {
-                const prev = document.querySelector('button.active')
-                prev.classList.remove('active')
-                e.target.classList.add('active')
-                handleClick("spaceport")
-              }}
-            >2</Button>
-            <Button
-              onClick={(e) => {
-                const prev = document.querySelector('button.active')
-                prev.classList.remove('active')
-                e.target.classList.add('active')
-                handleClick("space capsule")
-              }}
-            >3</Button>
-          </Buttons>
-          <article className="article">
-            <h2 className="term">
-              the terminology...
-              <span className='big'>{techObj.name}</span>
-            </h2>
+        <Container>
+          <Article>
+            <Buttons>
+              <Button
+                onClick={(e) => {
+                  const prev = document.querySelector('button.active')
+                  prev.classList.remove('active')
+                  e.target.classList.add('active')
+                  handleClick("launch vehicle")
+                }}
+              className='active' 
+              num="1"
+              >1</Button>
+              <Button
+                onClick={(e) => {
+                  const prev = document.querySelector('button.active')
+                  prev.classList.remove('active')
+                  e.target.classList.add('active')
+                  handleClick("spaceport")
+                }}
+              >2</Button>
+              <Button
+                onClick={(e) => {
+                  const prev = document.querySelector('button.active')
+                  prev.classList.remove('active')
+                  e.target.classList.add('active')
+                  handleClick("space capsule")
+                }}
+              >3</Button>
+            </Buttons>
+            <article className="article">
+              <h2 className="term">
+                the terminology...
+                <span className='big'>{techObj.name}</span>
+              </h2>
 
-            <p className="detail">
-              {techObj.description}
-            </p>
-          </article>
-        </Article>
-        <Figure>
-          <picture>
-            <source 
-              srcSet={techObj.images.portrait}
-              media="(min-width: 1024px)"
-            />
-            <img 
-              src={techObj.images.landscape}
-              alt={techObj.name}
-            />
-          </picture>
-        </Figure>
-      </Container>
+              <p className="detail">
+                {techObj.description}
+              </p>
+            </article>
+          </Article>
+          <Figure>
+            <picture>
+              <source 
+                srcSet={techObj.images.portrait}
+                media="(min-width: 1024px)"
+              />
+              <img 
+                src={techObj.images.landscape}
+                alt={techObj.name}
+              />
+            </picture>
+          </Figure>
+        </Container>
+
+
       </Content>
     </Section>
   )
