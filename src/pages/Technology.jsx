@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import mobile from '/assets/technology/background-technology-mobile.jpg'
 import tablet from '/assets/technology/background-technology-tablet.jpg'
@@ -182,19 +182,20 @@ const Article = styled.article`
     font-size: calc(1rem - 1px);
     color: #D0D6F9;
     line-height: 25px;
-    padding-inline: 1.5rem;
     margin-block-end: 56px;
-    max-inline-size: 444px;
-
+    margin: 0 auto;
+    max-inline-size: 458px;
+    
     @media (min-width: 768px) {
       font-size: 1rem;
       line-height: 28px;
-      padding-inline: 155px;
       margin-block-end: 97px;
     }
-
+    
     @media (min-width: 1024px) {
+      max-inline-size: 444px;
       padding-inline: 0;
+      margin: 0;
       margin-block-end: 40px;
     }
 
@@ -287,7 +288,12 @@ const Button = styled.button`
   }
 
 
-  &.active {
+  &.${() => {
+    if (localStorage.techname) {
+      return localStorage.techname.split(' ').join('').toLowerCase();
+    }
+    return 'active'
+  }} {
     color: #0B0D17;
     background-color: #fff;
     border: 1px solid #fff;
@@ -302,12 +308,12 @@ const Button = styled.button`
 
 const Technology = () => {
   const tech = PageContent("technology");
-  const [techName, setTechName] = useState("launch vehicle")
+  const [techName, setTechName] = useState(localStorage.techname || "launch vehicle")
   const techObj = tech.find(T => T.name.toLocaleLowerCase() === techName.toLocaleLowerCase())
 
-
-  const handleClick = (name) => {
+  const handleClick = (name ) => {
     setTechName(name)
+    localStorage.setItem('techname', name);
   }
 
   return (
@@ -328,16 +334,17 @@ const Technology = () => {
           <Article>
             <Buttons>
               <Button
+              className="launchvehicle active"
                 onClick={(e) => {
                   const prev = document.querySelector('button.active')
                   prev.classList.remove('active')
                   e.target.classList.add('active')
                   handleClick("launch vehicle")
                 }}
-              className='active' 
               num="1"
               >1</Button>
               <Button
+                className='spaceport'
                 onClick={(e) => {
                   const prev = document.querySelector('button.active')
                   prev.classList.remove('active')
@@ -346,6 +353,7 @@ const Technology = () => {
                 }}
               >2</Button>
               <Button
+                className='spacecapsule'
                 onClick={(e) => {
                   const prev = document.querySelector('button.active')
                   prev.classList.remove('active')

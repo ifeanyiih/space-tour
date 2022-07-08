@@ -193,7 +193,12 @@ const Button = styled.button`
 
 
 
-    :hover::after, &.active::after {
+    :hover::after, &.${() => {
+        if (localStorage.dname) {
+            return localStorage.dname
+        }
+        return 'active'
+    }}::after {
         content: "";
         position: absolute;
         inline-size: 100%;
@@ -208,7 +213,12 @@ const Button = styled.button`
         opacity: 0.5;
     }
 
-    &.active::after {
+    &.${() => {
+        if (localStorage.dname) {
+            return localStorage.dname
+        }
+        return 'active'
+    }}::after {
         background-color: #fff;
     }
 
@@ -265,22 +275,16 @@ const Distance = styled.div`
 const Destination = () => {
     const destinations = PageContent("destinations");
 
+    const [name, setName] = useState(localStorage.dname || 'Moon')
     
+    const placeObj = destinations.find(D => D.name === name)
 
-    const [location, setLocation] = useState(destinations.filter(destination => destination.name.toLowerCase() == "Moon".toLowerCase())[0])
+    const handleClick = (name) => {
+        setName(name)
+        localStorage.setItem('dname', name);
+    }
 
-    const updateState = (key) => {
-        const location = destinations.filter(destination => destination.name.toLowerCase() == key.toLowerCase())[0];
-        localStorage.setItem('place', key)
-        setLocation(location)
-        return
-    }
-    const handleButton = (e) => {
-        let target = e.target;
-        updateState(target.textContent);
-        document.querySelector('button.active').classList.remove('active')
-        target.classList.add('active')
-    }
+
   return (
     <Section aria-label='main content section destination page' className='main_content_section section destination'>
         <Container>
@@ -296,15 +300,22 @@ const Destination = () => {
 
             <Content>
                 <figure className="place_image_container">
-                    <IMG src={location.images.webp} alt="" />
+                    <IMG src={placeObj.images.webp} alt="" />
                 </figure>
                 <Article className="place_content">
                     <div className="content_buttons">
                         <ul className="content_buttons_list">
                             <li className="content_buttons_item">
                                 <Button 
-                                    onClick={handleButton}
-                                    className='content_button active'
+                                    onClick = {
+                                        (e) => {
+                                            const prev = document.querySelector('button.active')
+                                            prev.classList.remove('active')
+                                            e.target.classList.add('active')
+                                            handleClick("Moon") 
+                                        }
+                                    }
+                                    className='content_button Moon active'
                                 >
                                     moon
                                 </Button>
@@ -312,8 +323,13 @@ const Destination = () => {
 
                             <li className="content_buttons_item">
                                 <Button 
-                                    onClick={handleButton}
-                                    className='content_button'
+                                    onClick={(e) => {
+                                        const prev = document.querySelector('button.active')
+                                        prev.classList.remove('active')
+                                        e.target.classList.add('active')
+                                        handleClick("Mars") 
+                                    }}
+                                    className='content_button Mars'
                                 >
                                     mars
                                 </Button>
@@ -321,8 +337,13 @@ const Destination = () => {
 
                             <li className="content_buttons_item">
                                 <Button 
-                                    onClick={handleButton}
-                                    className='content_button'
+                                    onClick={(e) => {
+                                        const prev = document.querySelector('button.active')
+                                        prev.classList.remove('active')
+                                        e.target.classList.add('active')
+                                        handleClick("Europa") 
+                                    }}
+                                    className='content_button Europa'
                                 >
                                     europa
                                 </Button>
@@ -330,8 +351,13 @@ const Destination = () => {
 
                             <li className="content_buttons_item">
                                 <Button 
-                                    onClick={handleButton}
-                                    className='content_button'
+                                    onClick={  (e) => {
+                                        const prev = document.querySelector('button.active')
+                                        prev.classList.remove('active')
+                                        e.target.classList.add('active')
+                                        handleClick("Titan") 
+                                    }}
+                                    className='content_button Titan'
                                 >
                                     titan
                                 </Button>
@@ -342,11 +368,11 @@ const Destination = () => {
 
                     <div className="article_content">
                         <h2 className="content_title">
-                            {location.name}
+                            {placeObj.name}
                         </h2>
 
                         <p className="article_content_paragraph">
-                            {location.description}
+                            {placeObj.description}
                         </p>
 
                         <Distance className="distance">
@@ -355,7 +381,7 @@ const Destination = () => {
                                     avg. distance
                                 </h3>
                                 <p className="distance">
-                                    {location.distance}
+                                    {placeObj.distance}
                                 </p>
                             </div>
                             <div className="est">
@@ -363,7 +389,7 @@ const Destination = () => {
                                     est. travel time
                                 </h3>
                                 <p className="distance">
-                                    {location.travel}
+                                    {placeObj.travel}
                                 </p>
                             </div>
                         </Distance>

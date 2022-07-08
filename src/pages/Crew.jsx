@@ -250,11 +250,12 @@ const Btn = styled.button`
   border: none;
   cursor: pointer;
 
-  &.active {
-    opacity: 1;
-  }
-
-  &.active:hover {
+  &.${() => {
+    if (localStorage.cname) {
+      return localStorage.cname.toLowerCase();
+    }
+    return 'active'
+  }} {
     opacity: 1;
   }
 
@@ -272,18 +273,13 @@ const Crew = () => {
 
   const crew = PageContent("crew");
 
-  const [crewMember, setCrewMember] = useState(crew[0])
+  const [crewName, setCrewName] = useState(localStorage.cname || 'douglas')
 
-  const handleState = (n) => {
-    setCrewMember(crew[n]);
-  }
+  const crewObj = crew.find(C => C.name.split(' ')[0].toLowerCase() === crewName.toLowerCase())
 
-  const onClick = (e, n) => {
-    let target = e.target;
-    handleState(n)
-    let current = document.querySelector('button.active')
-    current.classList.remove('active')
-    target.classList.add('active')
+  const handleName = (name) => {
+    setCrewName(name);
+    localStorage.setItem('cname', name);
   }
 
   return (
@@ -304,28 +300,60 @@ const Crew = () => {
 
             <article className="article">
               <h2 className="crew_rank">
-                {crewMember.role}
+                {crewObj.role}
               </h2>
               <h3 className="crew_name">
-                {crewMember.name}
+                {crewObj.name}
               </h3>
 
               <p className="paragraph">
-                {crewMember.bio}
+                {crewObj.bio}
               </p>
             </article>
 
             <Toggle>
-              <Btn onClick={(e) => onClick(e, 0)} className='active'></Btn>
-              <Btn onClick={(e) => onClick(e, 1)}></Btn>
-              <Btn onClick={(e) => onClick(e, 2)}></Btn>
-              <Btn onClick={(e) => onClick(e, 3)}></Btn>
+              <Btn 
+                className='douglas active'
+                onClick={(e) => {
+                  const prev = document.querySelector('button.active')
+                  prev.classList.remove('active')
+                  e.target.classList.add('active')
+                  handleName("douglas")
+                }}
+              ></Btn>
+              <Btn
+                className='mark'
+                onClick={(e) => {
+                  const prev = document.querySelector('button.active')
+                  prev.classList.remove('active')
+                  e.target.classList.add('active')
+                  handleName("mark")
+                }}
+              ></Btn>
+              <Btn
+                className='victor'
+                onClick={(e) => {
+                  const prev = document.querySelector('button.active')
+                  prev.classList.remove('active')
+                  e.target.classList.add('active')
+                  handleName("victor")
+                }}
+              ></Btn>
+              <Btn
+                className='anousheh'
+                onClick={(e) => {
+                  const prev = document.querySelector('button.active')
+                  prev.classList.remove('active')
+                  e.target.classList.add('active')
+                  handleName("anousheh")
+                }}
+              ></Btn>
             </Toggle>
           </Article>
 
 
           <Figure>
-            <img src={crewMember.images.webp} alt=''/>
+            <img src={crewObj.images.webp} alt=''/>
           </Figure>
         </Content>
 
