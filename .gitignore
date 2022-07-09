@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+dist/*
 dist-ssr
 *.local
 
@@ -23,5 +23,3 @@ dist-ssr
 *.sln
 *.sw?
 starter-code
-preview.jpg
-README-template.md
